@@ -1,0 +1,12 @@
+services:
+  voice-ai-agent:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      VOICE_AI_DATA_PATH: /app/data/store.json
+      VOICE_AI_LOG_PATH: /app/logs/latency.jsonl
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+

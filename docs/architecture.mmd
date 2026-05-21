@@ -1,0 +1,19 @@
+flowchart LR
+    user[Patient Speech] --> ws[WebSocket /ws/voice]
+    ws --> stt[Speech-to-Text]
+    stt --> lang[Language Detection]
+    lang --> agent[Clinical LLM Agent]
+    agent --> memory[(Session + Patient Memory)]
+    agent --> tools[Tool Orchestration]
+    tools --> scheduler[Appointment Engine]
+    scheduler --> store[(JSON Store / Postgres-ready)]
+    tools --> agent
+    agent --> tts[Text-to-Speech]
+    tts --> ws
+    ws --> audio[Audio Response]
+    campaigns[Outbound Campaign Scheduler] --> ws
+    latency[Latency Logger] -. measures .- stt
+    latency -. measures .- agent
+    latency -. measures .- tools
+    latency -. measures .- tts
+
